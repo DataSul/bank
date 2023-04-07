@@ -1,6 +1,16 @@
-.userDiv{
+.userDiv {
     text-align: center;
     margin: 30px;
     border: solid 2px;
-    border-color: black ;
+    border-color: black;
 }
+
+
+.userBoxContainer {
+    position: relative;
+  }
+  
+  .userDiv {
+    padding-right: 25px;
+  }
+  

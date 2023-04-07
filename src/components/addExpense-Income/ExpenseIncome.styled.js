@@ -3,18 +3,24 @@ import { Link } from 'react-router-dom';
 
 export const StyledLink = styled(Link)`
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #F12B2B;
+  border-color: #F12B2B;
   padding: 0.3rem 0.8rem;
   border-radius: 0.25rem;
   text-decoration: none;
-  margin-top:20px;
+  position: fixed;
+  bottom: 0;
   
   &:hover {
-    background-color: #0069d9;
-    border-color: #0062cc;
+    background-color: #D11111;
+    border-color: #D11111;
   }
 `;
+export const SuccessMessage = styled.p`
+  color: green;
+  font-weight: bold;
+`;
+
 export const AddExpenseContainer = styled.div`
   max-width: 600px;
   margin: 0 auto;

@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { StyledButton, StyledError, StyledForm , StyledRegistrationPage } from './Signup.styled';
+import { StyledButton, StyledError, StyledForm, StyledRegistrationPage } from './Signup.styled';
 import LabelInput from '../Lable-input/LableInput';
 import { Link } from "react-router-dom";
 
 
 function RegistrationPage() {
- 
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
- 
+
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
     if (!email) {
       setEmailError('Please enter your email');
     } else {
@@ -25,6 +24,8 @@ function RegistrationPage() {
     }
     if (!password) {
       setPasswordError('Please enter your password');
+    } else if (password.length < 8) {
+      setPasswordError('Password must be at least 8 characters long');
     } else {
       setPasswordError('');
     }
@@ -35,9 +36,7 @@ function RegistrationPage() {
     } else {
       setConfirmPasswordError('');
     }
-    
-    if (email && password && confirmPassword === password) {
-     
+    if (email && !passwordError && password.length >= 8 && confirmPassword === password) {
       const formData = {
         email: email,
         password: password,
@@ -46,11 +45,13 @@ function RegistrationPage() {
       setEmail('');
       setPassword('');
       setConfirmPassword('');
-    
       console.log([formData]);
-      window.location.href = "ExpenseIncome";
+      localStorage.setItem('registrationData', JSON.stringify(formData));
+      console.log(JSON.parse(localStorage.getItem('registrationData')));
+      window.location.href = "/";
+      
     }
-  };
+  }
 
   return (
     <StyledRegistrationPage>
@@ -90,7 +91,7 @@ function RegistrationPage() {
         <p>Already have an account?  <Link to='/'>Sign In</Link></p>
       </StyledForm>
     </StyledRegistrationPage>
-    
+
   );
 }
 

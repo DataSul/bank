@@ -1,34 +1,10 @@
-import SumBox from "../sum-box/SumBox";
-import './Total.css'
-const Total = () => {
-  const userArr = [
-    {
-      created_at: "20-12-2007",
-      type: "income",
-      category: "salary",
-      amount: 5000
-    },
-    {
-      created_at: "10-4-2017",
-      type: "expense",
-      category: "s",
-      amount: 125
-    },
-    {
-      created_at: "20-01-1997",
-      type: "expense",
-      category: "shopping",
-      amount: 600
-    },
-    {
-      created_at: "02-02-2002",
-      type: "expense",
-      category: "family",
-      amount: 2000
-    }
-  ];
+import { useState, useEffect } from 'react';
+import UserBox from '../user-box/UserBox';
+import SumBox from '../sum-box/SumBox';
+import { FlexDiv } from './totalStyled';
 
-  const amounts = userArr.reduce(
+const Total = ({ transactions }) => {
+  const amounts = transactions.reduce(
     (acc, item) => {
       if (item.type === "income") {
         acc.income += item.amount;
@@ -43,12 +19,37 @@ const Total = () => {
   amounts.difference = amounts.income - amounts.expense;
 
   return (
-    <div className="flex">
+    <FlexDiv>
       <SumBox text="income" amount={amounts.income} />
       <SumBox text="difference" amount={amounts.difference} />
       <SumBox text="expense" amount={amounts.expense} />
+    </FlexDiv>
+  );
+};
+
+const Users = () => {
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    setTransactions(storedTransactions);
+  }, []);
+
+  const handleDelete = (deletedTransactionIndex) => {
+    const updatedTransactions = [...transactions];
+    updatedTransactions.splice(deletedTransactionIndex, 1);
+    localStorage.setItem('transactions', JSON.stringify(updatedTransactions));
+    setTransactions(updatedTransactions);
+  };
+
+  return (
+    <div>
+      <Total transactions={transactions} />
+      {transactions.map((transaction, index) => (
+        <UserBox key={index} info={transaction} onDelete={() => handleDelete(index)} />
+      ))}
     </div>
   );
 };
 
-export default Total;
+export default Users;

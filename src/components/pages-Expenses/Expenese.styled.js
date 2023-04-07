@@ -22,15 +22,17 @@ font-size:16px;
 `;
 export const StyledLink = styled(Link)`
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #F12B2B;
+  border-color: #F12B2B;
   padding: 0.3rem 0.8rem;
   border-radius: 0.25rem;
   text-decoration: none;
-  margin-top:20px;
+  position: fixed;
+  top: 0;
+  left: 0;
   
   &:hover {
-    background-color: #0069d9;
-    border-color: #0062cc;
+    background-color: #D11111;
+    border-color: #D11111;
   }
 `;
